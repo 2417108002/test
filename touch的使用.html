@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            width: 300px;
+            height: 500px;
+            border: 3px solid #000;
+            overflow: hidden;
+
+        }
+        .sonbox {
+            width: 250px;
+            height: 1140px;
+            border: 3px solid red;
+        }
+        .sonbox li {
+            list-style: none;
+            box-sizing: border-box;
+            border: 1px solid greenyellow;
+        }
+        .active {
+            background: orange;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="sonbox">
+            <ul>
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+                <li>11</li>
+                <li>12</li>
+                <li>13</li>
+                <li>14</li>
+                <li>15</li>
+                <li>16</li>
+                <li>17</li>
+                <li>18</li>
+                <li>19</li>
+                <li>20</li>
+                <li>21</li>
+                <li>22</li>
+                <li>23</li>
+                <li>24</li>
+                <li>25</li>
+                <li>26</li>
+                <li>27</li>
+                <li>28</li>
+                <li>29</li>
+                <li>30</li>
+                <li>31</li>
+                <li>32</li>
+                <li>33</li>
+                <li>34</li>
+                <li>35</li>
+                <li>36</li>
+                <li>37</li>
+                <li>38</li>
+                <li>39</li>
+                <li>40</li>
+                <li>41</li>
+                <li>42</li>
+                <li>43</li>
+                <li>44</li>
+                <li>45</li>
+                <li>46</li>
+                <li>47</li>
+                <li>48</li>
+                <li>49</li>
+                <li>50</li>
+               
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+   var box = document.querySelector('.box');
+   var sonbox = document.querySelector('.sonbox');
+   var lists = document.querySelectorAll('.sonbox li');
+   var startY = 0 ;
+   var moveY = 0 ;
+   var endY = 0 ;
+   sonbox.addEventListener('touchstart',function(e){
+       startY = e.touches[0].clientY;
+   });
+   sonbox.addEventListener('touchmove',function(e){
+       moveY = e.touches[0].clientY - startY;
+       sonbox.style.transform = "translateY("+ (endY+moveY) +"px)";
+   });
+   sonbox.addEventListener('touchend',function(e){
+       endY += moveY;
+       console.log(e);   
+   });
+   for (let i = 0; i < lists.length; i++) {
+      lists[i].dataset['index'] = i;
+      lists[i].addEventListener('click',function(){
+          let index = this.dataset.index;
+          let distanceY = -index * this.offsetHeight;
+          let minDistanceY = box.offsetHeight - sonbox.offsetHeight;
+          if(distanceY < minDistanceY){
+              distanceY = minDistanceY;
+          }
+          
+          
+          sonbox.style.transform = "translateY("+ distanceY +"px)";
+          sonbox.style.transition = "all 1s ";
+          for (let i = 0; i < lists.length; i++) {
+             lists[i].classList.remove('active');
+              
+          }  
+          this.classList.add('active');
+      });
+       
+   }
+</script>
